@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+:root {
+  /* Photorealistic Sunlit Travertine, Plaster & Burnished Bronze Palette
+     Color-graded directly from the carved ivory palace doors & Save the Date card */
+  --color-ivory: #efe3ce;
+  --color-ivory-light: #f8f0e1;
+  --color-ivory-deep: #dcc9aa;
+  --color-golden-hour: #e7d1ab;
+  --color-sage: #ddd3bc;
+  --color-olive: #4a3b23; /* Deep burnished antique bronze-olive ink */
+  --color-olive-muted: #6f5c3e;
+  --color-gold: #c29642;
+  --color-gold-light: #e2c27a;
+  --color-gold-dark: #8c6623;
+  --color-gold-glow: #f5db9c;
+  --color-brown: #7a6042;
+
+  /* Fluid Type Scale — strict 6-step scale, no ad-hoc font sizes */
+  --text-display: clamp(3.35rem, 11.5vw, 6.25rem);
+  --text-h1: clamp(2.25rem, 7vw, 4rem);
+  --text-h2: clamp(1.45rem, 4.4vw, 2.35rem);
+  --text-label: clamp(0.68rem, 1.9vw, 0.85rem);
+  --text-body: clamp(1.02rem, 2.4vw, 1.2rem);
+  --text-small: clamp(0.82rem, 1.8vw, 0.94rem);
+
+  /* Motion */
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+    color: var(--color-olive);
+    font-family: var(--font-serif), Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-olive);
+    min-height: 100dvh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  ::selection {
+    background-color: rgba(194, 150, 66, 0.28);
+    color: var(--color-olive);
+  }
+}
+
+/* Typography utility classes bound to our fixed 6-step fluid scale */
+.type-display {
+  font-family: var(--font-script), cursive;
+  font-size: var(--text-display);
+  line-height: 1.08;
+  font-weight: 400;
+  color: var(--color-olive);
+  text-shadow: 0 1px 0 rgba(255, 248, 232, 0.72), 0 2px 10px rgba(74, 59, 35, 0.08);
+}
+
+.type-h1 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--text-h1);
+  line-height: 1.12;
+  font-weight: 400;
+  color: var(--color-olive);
+  text-shadow: 0 1px 0 rgba(255, 248, 232, 0.72);
+}
+
+.type-h2 {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--text-h2);
+  line-height: 1.25;
+  font-weight: 400;
+  color: var(--color-olive);
+  text-shadow: 0 1px 0 rgba(255, 248, 232, 0.65);
+}
+
+.type-arabic {
+  font-family: var(--font-arabic), serif;
+  font-size: var(--text-h2);
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-olive);
+  direction: rtl;
+  text-shadow: 0 1px 0 rgba(255, 248, 232, 0.7);
+}
+
+.type-label {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--text-label);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-olive);
+  text-shadow: 0 1px 0 rgba(255, 248, 232, 0.6);
+}
+
+.type-body {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-olive);
+}
+
+.type-small {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--text-small);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--color-olive-muted);
+}
+
+/* Font-family overrides placed after scale classes so combinations like "type-h1 font-script" work cleanly */
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-serif-editorial {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-arabic {
+  font-family: var(--font-arabic), serif;
+}
+
+/* Photorealistic physical stationery & carved-plaster surfaces (replaces flat CSS cards) */
+.paper-grain {
+  background-image: url("/assets/paper-texture.webp");
+  background-size: 420px 420px;
+  background-repeat: repeat;
+}
+
+.plaster-tablet {
+  background-color: rgba(247, 239, 224, 0.84);
+  background-image:
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 240, 0.72) 0%,
+      rgba(239, 227, 206, 0.42) 52%,
+      rgba(218, 198, 166, 0.48) 100%
+    ),
+    url("/assets/paper-texture.webp");
+  background-size: cover, 380px 380px;
+  border: 1px solid rgba(194, 150, 66, 0.52);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 251, 242, 0.92),
+    inset 0 -2px 6px rgba(130, 100, 52, 0.14),
+    0 24px 56px -14px rgba(64, 46, 20, 0.24),
+    0 6px 18px -4px rgba(64, 46, 20, 0.12);
+}
+
+.plaster-recess {
+  background: linear-gradient(
+    160deg,
+    rgba(220, 201, 170, 0.45) 0%,
+    rgba(248, 240, 225, 0.88) 100%
+  );
+  border: 1px solid rgba(194, 150, 66, 0.45);
+  box-shadow:
+    inset 0 2px 6px rgba(84, 62, 28, 0.16),
+    inset 0 -1px 1px rgba(255, 250, 240, 0.85),
+    0 4px 14px rgba(64, 46, 20, 0.08);
+}
+
+.gold-brass-btn {
+  background: linear-gradient(
+    180deg,
+    rgba(250, 243, 228, 0.96) 0%,
+    rgba(235, 220, 192, 0.94) 100%
+  );
+  border: 1px solid rgba(176, 134, 56, 0.75);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 244, 0.95),
+    inset 0 -1px 2px rgba(140, 102, 35, 0.2),
+    0 12px 28px -8px rgba(74, 55, 22, 0.28),
+    0 3px 8px rgba(74, 55, 22, 0.12);
+}
+
+.gold-brass-btn:hover {
+  border-color: rgba(162, 120, 44, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 244, 1),
+    0 14px 32px -8px rgba(140, 102, 35, 0.35),
+    0 4px 10px rgba(74, 55, 22, 0.16);
+}
+
+/* Subtle idle animations */
+@keyframes lanternSway {
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+@keyframes glowBreathe {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.92;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes shadowDrift {
+  0%,
+  100% {
+    transform: translate3d(0px, 0px, 0px) scale(1.02);
+  }
+  50% {
+    transform: translate3d(-12px, 8px, 0px) scale(1.05);
+  }
+}
+
+.animate-lantern-sway {
+  transform-origin: top center;
+  animation: lanternSway 6.5s ease-in-out infinite;
+}
+
+.animate-glow-breathe {
+  animation: glowBreathe 4.6s ease-in-out infinite;
+}
+
+.animate-shadow-drift {
+  animation: shadowDrift 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-lantern-sway,
+  .animate-glow-breathe,
+  .animate-shadow-drift {
+    animation: none;
+  }
+}
