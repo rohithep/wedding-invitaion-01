@@ -72,11 +72,6 @@ export function SmoothScrollProvider({
 
     const onScroll = () => {
       ScrollTrigger.update();
-      const maxScroll = Math.max(
-        1,
-        document.documentElement.scrollHeight - window.innerHeight
-      );
-      progressRef.current = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     };
 
     lenis.on("scroll", onScroll);

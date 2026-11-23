@@ -54,11 +54,11 @@ export function InvitationCanvas({
       className="pointer-events-none fixed inset-0 z-[2]"
     >
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ fov: 44, near: 0.1, far: 40, position: [0, 0.25, 6.2] }}
         gl={{
           alpha: true,
-          antialias: true,
+          antialias: false,
           powerPreference: "high-performance",
         }}
       >

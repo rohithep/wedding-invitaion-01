@@ -36,15 +36,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
     scrollbar-gutter: stable;
   }
 
   body {
     background-color: var(--color-ivory);
     color: var(--color-olive);
-    min-height: 100dvh;
-    overflow-x: hidden;
+    min-height: 100svh;
+    overflow-x: clip;
     position: relative;
   }
 

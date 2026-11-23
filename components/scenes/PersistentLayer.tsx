@@ -23,7 +23,8 @@ interface PersistentLayerProps {
  * - Persistent hanging antique brass filigree lantern gliding smoothly across scroll
  */
 export function PersistentLayer({ reducedMotion }: PersistentLayerProps) {
-  const tintRef = useRef<HTMLDivElement>(null);
+  const goldenTintRef = useRef<HTMLDivElement>(null);
+  const sageTintRef = useRef<HTMLDivElement>(null);
   const silkRef = useRef<HTMLDivElement>(null);
   const draperyRef = useRef<HTMLDivElement>(null);
   const lanternWrapRef = useRef<HTMLDivElement>(null);
@@ -34,33 +35,36 @@ export function PersistentLayer({ reducedMotion }: PersistentLayerProps) {
     if (reducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Continuous subtle atmospheric color-grade wash over the photorealistic plaster
-      if (tintRef.current) {
-        const tintTl = gsap.timeline({
+      // GPU-only opacity cross-fades (replaces CPU-repainting backgroundColor interpolation)
+      if (goldenTintRef.current) {
+        gsap.fromTo(
+          goldenTintRef.current,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: "8% top",
+              end: "48% bottom",
+              scrub: 0.45,
+            },
+          }
+        );
+      }
+
+      if (sageTintRef.current) {
+        const sageTl = gsap.timeline({
           scrollTrigger: {
             trigger: document.documentElement,
-            start: "top top",
-            end: "bottom bottom",
+            start: "38% top",
+            end: "92% bottom",
             scrub: 0.45,
           },
         });
-
-        tintTl
-          .to(tintRef.current, {
-            backgroundColor: "rgba(232, 202, 152, 0.24)", // Deep golden hour
-            duration: 0.35,
-            ease: "none",
-          })
-          .to(tintRef.current, {
-            backgroundColor: "rgba(196, 194, 166, 0.22)", // Soft hazy sage-stucco
-            duration: 0.35,
-            ease: "none",
-          })
-          .to(tintRef.current, {
-            backgroundColor: "rgba(239, 224, 198, 0.14)", // Luminous sanctuary ivory
-            duration: 0.3,
-            ease: "none",
-          });
+        sageTl
+          .fromTo(sageTintRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" })
+          .to(sageTintRef.current, { opacity: 0, duration: 0.5, ease: "none" });
       }
 
       // Cross-fade in the dreamy cream-silk candlelight backdrop in lower scenes
@@ -200,11 +204,16 @@ export function PersistentLayer({ reducedMotion }: PersistentLayerProps) {
         />
       </div>
 
-      {/* 3. Continuous scroll-interpolated warm color-grade wash */}
+      {/* 3. GPU-only opacity color-grade washes (Golden Hour + Soft Hazy Sage) */}
       <div
-        ref={tintRef}
-        className="absolute inset-0"
-        style={{ backgroundColor: "rgba(239, 227, 206, 0.08)" }}
+        ref={goldenTintRef}
+        className="absolute inset-0 opacity-0 will-change-[opacity]"
+        style={{ backgroundColor: "rgba(232, 202, 152, 0.22)" }}
+      />
+      <div
+        ref={sageTintRef}
+        className="absolute inset-0 opacity-0 will-change-[opacity]"
+        style={{ backgroundColor: "rgba(196, 194, 166, 0.22)" }}
       />
 
       {/* 4. Architectural Vignette & Warm Sunlight Depth */}
@@ -216,8 +225,8 @@ export function PersistentLayer({ reducedMotion }: PersistentLayerProps) {
         }}
       />
 
-      {/* 5. Slowly Drifting Dappled Olive-Tree Sunlight Shadows (multiply) */}
-      <div className="animate-shadow-drift absolute -inset-6 opacity-34 mix-blend-multiply">
+      {/* 5. Dappled Olive-Tree Sunlight Shadows (static GPU layer — avoids 60fps multiply repaints) */}
+      <div className="absolute -inset-4 opacity-34 mix-blend-multiply">
         <Image
           src="/assets/leaf-shadows.webp"
           alt=""

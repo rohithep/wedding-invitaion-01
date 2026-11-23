@@ -51,6 +51,7 @@ export function HeroScene({ gateOpened, reducedMotion }: HeroSceneProps) {
             scale: 1.18,
             opacity: 0.12,
             yPercent: -4,
+            force3D: true,
             ease: "none",
           },
           0
@@ -64,6 +65,7 @@ export function HeroScene({ gateOpened, reducedMotion }: HeroSceneProps) {
             yPercent: -14,
             opacity: 0.15,
             scale: 0.97,
+            force3D: true,
             ease: "none",
           },
           0
@@ -80,57 +82,59 @@ export function HeroScene({ gateOpened, reducedMotion }: HeroSceneProps) {
     <section
       ref={sectionRef}
       aria-label="Nikkah Hero Invitation"
-      className="relative z-10 min-h-[135dvh] w-full"
+      className="relative z-10 min-h-[135svh] w-full"
     >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={
-          gateOpened ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }
-        }
-        transition={{ duration: 1.55, ease: MOTION_EASE_CUBIC }}
-        className="sticky top-0 flex h-dvh w-full items-center justify-center overflow-hidden"
-      >
-        {/* Photorealistic Carved Moroccan Plaster Archway Background (Text-Free) */}
-        <div
-          ref={photoArchRef}
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 flex items-center justify-center will-change-transform"
+      {/* Keep sticky container strictly transform-free to prevent mobile sticky jitter */}
+      <div className="sticky top-0 h-svh w-full overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={
+            gateOpened ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }
+          }
+          transition={{ duration: 1.55, ease: MOTION_EASE_CUBIC }}
+          className="relative flex h-full w-full items-center justify-center"
         >
+          {/* Photorealistic Carved Moroccan Plaster Archway Background (Text-Free) */}
           <div
-            className="relative h-full w-full max-w-[600px] sm:max-w-[660px]"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
-            }}
+            ref={photoArchRef}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 flex items-center justify-center will-change-transform"
           >
-            <Image
-              src="/assets/photo/hero-archway.webp"
-              alt=""
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="(max-width: 640px) 100vw, 660px"
-            />
-            {/* Soft warm breathing candlelight shimmer over the photo's hanging lantern */}
-            <div
-              className="animate-glow-breathe absolute top-[32%] right-[24%] h-24 w-24 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255,222,140,0.45) 0%, rgba(215,170,80,0.12) 50%, transparent 74%)",
-              }}
-            />
-            {/* Soft horizontal feathering on wide desktop screens so the arch blends into the sunlit plaster */}
-            <div
-              className="hidden sm:block absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(239,227,206,0.75) 0%, transparent 12%, transparent 88%, rgba(239,227,206,0.75) 100%)",
-              }}
-            />
+            <div className="relative h-full w-full max-w-[600px] sm:max-w-[660px]">
+              <Image
+                src="/assets/photo/hero-archway.webp"
+                alt=""
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 640px) 100vw, 660px"
+              />
+              {/* Soft warm breathing candlelight shimmer over the photo's hanging lantern */}
+              <div
+                className="animate-glow-breathe absolute top-[32%] right-[24%] h-24 w-24 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(255,222,140,0.45) 0%, rgba(215,170,80,0.12) 50%, transparent 74%)",
+                }}
+              />
+              {/* Bottom soft fade into sunlit plaster (replaces GPU-heavy CSS maskImage) */}
+              <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, transparent 0%, rgba(239,227,206,0.92) 100%)",
+                }}
+              />
+              {/* Soft horizontal feathering on wide desktop screens so the arch blends into the sunlit plaster */}
+              <div
+                className="hidden sm:block absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(90deg, rgba(239,227,206,0.75) 0%, transparent 12%, transparent 88%, rgba(239,227,206,0.75) 100%)",
+                }}
+              />
+            </div>
           </div>
-        </div>
 
         {/* Real Animated HTML Typography seated cleanly inside the sunlit archway center */}
         <div
@@ -300,7 +304,8 @@ export function HeroScene({ gateOpened, reducedMotion }: HeroSceneProps) {
           </span>
           <span className="block h-6 w-[1px] bg-gradient-to-b from-[var(--color-gold)] to-transparent" />
         </motion.div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

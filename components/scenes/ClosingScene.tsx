@@ -25,29 +25,29 @@ export function ClosingScene() {
   return (
     <footer
       aria-label="Closing and Family Compliments"
-      className="relative z-10 -mt-[6dvh] flex min-h-[108dvh] w-full flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-44 text-center sm:px-10 sm:pb-52"
+      className="relative z-10 -mt-[6svh] flex min-h-[108svh] w-full flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-44 text-center sm:px-10 sm:pb-52"
     >
       {/* Photorealistic Candlelit Silk & Travertine Lantern Alcove Backdrop */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 flex justify-center"
       >
-        <div
-          className="relative h-full w-full max-w-[680px]"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, transparent 0%, black 16%, black 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, black 16%, black 100%)",
-          }}
-        >
+        <div className="relative h-full w-full max-w-[680px]">
           <Image
             src="/assets/photo/closing-alcove.webp"
             alt=""
             fill
-            loading="lazy"
+            loading="eager"
             className="object-cover object-bottom"
             sizes="(max-width: 680px) 100vw, 680px"
+          />
+          {/* Top soft fade into sunlit plaster (replaces GPU-heavy CSS maskImage) */}
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-32"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(239,227,206,0.96) 0%, transparent 100%)",
+            }}
           />
           {/* Subtle warm breathing glow over the brass lantern on the ledge */}
           <div
